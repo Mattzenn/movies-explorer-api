@@ -1,0 +1,47 @@
+const Movie = require('../models/movie');
+
+const getMovies = (req, res, next) => {
+  Movie.find({})
+    .then((movies) => res.send(movies))
+    .catch(next);
+};
+
+const createMovie = (req, res, next) => {
+  const { country, director, duration, year, description, image, trailer, thumbnail, movieId, nameRU, nameEN } = req.body;
+  const owner = req.user._id;
+
+  Movie.create({ country, director, duration, year, description, image, trailer, thumbnail, movieId, nameRU, nameEN, owner })
+    .then((movie) => res.send(movie))
+    .catch((err) => {
+      if (err.name === 'ValidationError') {
+        // throw new BadRequest(err.message);
+      }
+    })
+    .catch(next);
+};
+
+const deleteMovie = (req, res, next) => {
+  const movieId = req.user._id;
+  const { _id } = req.params;
+
+  Movie.findById(_id)
+    .orFail()
+    .catch(() => {
+      // throw new NotFound('Карточка с таким id не найдена');
+    })
+    .then((movie) => {
+      if (movie.owner.toString() === movieId) {
+        Movie.findByIdAndRemove(_id)
+          .then((datamovie) => res.send(datamovie));
+      } else {
+        // throw new Forbidden('Недостаточно прав!');
+      }
+    })
+    .catch(next);
+};
+
+module.exports = {
+  getMovies,
+  createMovie,
+  deleteMovie,
+};
