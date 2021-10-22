@@ -39,8 +39,16 @@ const idValidation = celebrate({
   }),
 });
 
+const loginValidation = celebrate({
+  body: Joi.object().keys({
+    email: Joi.string().required().email(),
+    password: Joi.string().required(),
+  }),
+});
+
 module.exports = {
   movieValidation,
   idValidation,
   userValidation,
+  loginValidation,
 };
