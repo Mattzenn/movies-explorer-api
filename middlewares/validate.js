@@ -23,6 +23,7 @@ const movieValidation = celebrate({
     thumbnail: Joi.string().required().custom(method),
     nameRU: Joi.string().required(),
     nameEN: Joi.string().required(),
+    movieId: Joi.number().integer().required(),
   }),
 });
 

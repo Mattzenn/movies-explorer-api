@@ -3,9 +3,10 @@ const helmet = require('helmet');
 const express = require('express');
 const mongoose = require('mongoose');
 const { errors } = require('celebrate');
+const bodyParser = require('body-parser');
+const rateLimit = require('express-rate-limit');
 const errorHandler = require('./middlewares/error-handler');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-const bodyParser = require('body-parser');
 const usersRouter = require('./routes/users');
 const moviesRouter = require('./routes/movies');
 const { login, createUser } = require('./controllers/users');
@@ -20,6 +21,13 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(requestLogger);
+
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // limit each IP to 100 requests per windowMs
+});
+
+app.use(limiter);
 
 app.use(helmet());
 

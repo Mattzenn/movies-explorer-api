@@ -10,10 +10,35 @@ const getMovies = (req, res, next) => {
 };
 
 const createMovie = (req, res, next) => {
-  const { country, director, duration, year, description, image, trailer, thumbnail, movieId, nameRU, nameEN } = req.body;
+  const {
+    country,
+    director,
+    duration,
+    year,
+    description,
+    image,
+    trailer,
+    thumbnail,
+    movieId,
+    nameRU,
+    nameEN,
+  } = req.body;
   const owner = req.user._id;
 
-  Movie.create({ country, director, duration, year, description, image, trailer, thumbnail, movieId, nameRU, nameEN, owner })
+  Movie.create({
+    country,
+    director,
+    duration,
+    year,
+    description,
+    image,
+    trailer,
+    thumbnail,
+    movieId,
+    nameRU,
+    nameEN,
+    owner,
+  })
     .then((movie) => res.send(movie))
     .catch((err) => {
       if (err.name === 'ValidationError') {
@@ -24,7 +49,7 @@ const createMovie = (req, res, next) => {
 };
 
 const deleteMovie = (req, res, next) => {
-  const movieId = req.user._id;
+  const ownerId = req.user._id;
   const { _id } = req.params;
 
   Movie.findById(_id)
@@ -33,7 +58,7 @@ const deleteMovie = (req, res, next) => {
       throw new NotFound('Карточка с таким id не найдена');
     })
     .then((movie) => {
-      if (movie.owner.toString() === movieId) {
+      if (movie.owner.toString() === ownerId) {
         Movie.findByIdAndRemove(_id)
           .then((datamovie) => res.send(datamovie));
       } else {
