@@ -20,10 +20,10 @@ const getCurrentUser = (req, res, next) => {
 };
 
 const updateUser = (req, res, next) => {
-  const { name, about } = req.body;
+  const { name, email } = req.body;
   const userId = req.user._id;
 
-  User.findByIdAndUpdate(userId, { name, about }, { new: true, runValidators: true })
+  User.findByIdAndUpdate(userId, { name, email }, { new: true, runValidators: true })
     .orFail(() => {
       throw new NotFound('Пользователь с таким id не найден');
     })

@@ -33,6 +33,11 @@ app.use(helmet());
 
 app.post('/signup', userValidation, createUser);
 app.post('/signin', loginValidation, login);
+
+app.use('/', auth, usersRouter);
+
+app.use('/', auth, moviesRouter);
+
 app.use('/movies', auth, moviesRouter);
 app.use('/users', auth, usersRouter);
 
@@ -40,7 +45,7 @@ app.use('*', () => {
   throw new NotFound('Запрашиваемый ресурс не найден');
 });
 
-mongoose.connect('mongodb://localhost:27017/bitfilmsdb');
+mongoose.connect('mongodb://localhost:27017/moviesdb');
 
 app.use(errorLogger);
 
