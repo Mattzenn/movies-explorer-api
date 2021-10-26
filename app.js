@@ -1,4 +1,5 @@
 require('dotenv').config();
+const cors = require('cors');
 const helmet = require('helmet');
 const express = require('express');
 const mongoose = require('mongoose');
@@ -23,6 +24,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(requestLogger);
 
 app.use(limiter);
+
+app.use(cors());
+app.options('*', cors());
 
 app.use(helmet());
 
