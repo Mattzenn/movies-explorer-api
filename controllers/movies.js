@@ -52,14 +52,14 @@ const deleteMovie = (req, res, next) => {
   const ownerId = req.user._id;
   const { _id } = req.params;
 
-  Movie.findById(_id)
+  Movie.findOne({ movieId: _id })
     .orFail()
     .catch(() => {
       throw new NotFound('Карточка с таким id не найдена');
     })
     .then((movie) => {
       if (movie.owner.toString() === ownerId) {
-        Movie.findByIdAndRemove(_id)
+        Movie.findOneAndDelete({ movieId: _id })
           .then((datamovie) => res.send(datamovie));
       } else {
         throw new Forbidden('Недостаточно прав!');
