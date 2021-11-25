@@ -58,7 +58,6 @@ const movieSchema = new Schema({
     type: Number,
     ref: 'movie',
     required: true,
-    unique: true,
   },
   nameRU: {
     type: String,

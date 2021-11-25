@@ -44,7 +44,7 @@ app.use('*', () => {
   throw new NotFound('Запрашиваемый ресурс не найден');
 });
 
-mongoose.connect('mongodb://localhost:27017/moviesdb');
+mongoose.connect('mongodb://localhost:27017/moviesdbnew');
 
 app.use(errorLogger);
 

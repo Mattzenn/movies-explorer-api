@@ -9,7 +9,6 @@ const getMovies = (req, res, next) => {
     .catch(next);
 };
 
-
 const createMovie = (req, res, next) => {
   const {
     country,
