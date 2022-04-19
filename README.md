@@ -2,7 +2,7 @@
 
 ## Создана в рамках учебы в [Яндекс.Практикум](https://praktikum.yandex.ru/) на курсе ["Веб-разработчик"](https://praktikum.yandex.ru/web/).
 
- ### Ссылка на размещенный сайт на сервере: https://mattzenn-movies.nomoredomains.rocks/
+ ### Ссылка на сайт размещенный на сервере: https://mattzenn-movies.nomoredomains.rocks/
  ### Ссылка на backend сайта на сервере: https://api.mattzenn-movies.nomoredomains.rocks (backend) Публичный ip 84.252.138.161
  ### Ссылка: на репозиторий frontend https://github.com/Mattzenn/movies-explorer-frontend
 
